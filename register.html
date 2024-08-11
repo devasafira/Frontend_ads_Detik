@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+
+    <style>
+        .input-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            border-radius: 16px;
+            background: #F8F8F8;
+            padding: 10px;
+        }
+
+        input{
+            border: none;
+            background: transparent;
+        }
+
+        input:focus, textarea:focus {
+            outline: none; /* Removes the default focus outline */
+            border: none; /* Removes any border that may appear on focus */
+            box-shadow: none; /* Removes any box-shadow that may appear on focus */
+        }
+
+        .required {
+            padding-right: 20px;
+            font-size: 16px;
+        }
+
+        .input-container .required-asterisk {
+            position: absolute;
+            top: 50%;
+            left: 140px;
+            transform: translateY(-50%);
+            color: red;
+            font-size: 20px;
+            pointer-events: none;
+            visibility: visible;
+        }
+        .input-container .requiredtext-asterisk {
+            position: absolute;
+            top: 18%;
+            right: 40px;
+            transform: translateY(-50%);
+            color: red;
+            font-size: 20px;
+            pointer-events: none;
+            visibility: visible;
+        }
+        .input-container .requiredemail-asterisk {
+            position: absolute;
+            top: 50%;
+            left: 65px;
+            transform: translateY(-50%);
+            color: red;
+            font-size: 20px;
+            pointer-events: none;
+            visibility: visible;
+        }
+
+        .input-container input:valid + .required-asterisk,
+        .input-container input:not(:placeholder-shown):not(:focus) + .required-asterisk {
+            visibility: hidden;
+        }
+
+        .input-container input:valid + .requiredemail-asterisk,
+        .input-container input:not(:placeholder-shown):not(:focus) + .requiredemail-asterisk {
+            visibility: hidden;
+        }
+
+        textarea {
+            padding-right: 20px;
+            font-size: 16px;
+            width: 100%;
+            min-height: 100px;
+            box-sizing: border-box;
+            resize: none;
+            background: transparent;
+            border: none;
+        }
+
+        textarea:valid + .requiredtext-asterisk,
+        textarea:not(:placeholder-shown):not(:focus) + .requiredtext-asterisk {
+            visibility: hidden;
+        }
+
+        .custom-file-upload {
+            border: none;
+            background: transparent;
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .custom-file-upload img {
+            width: 200px;
+            height: 200px;
+            flex-shrink: 0;
+        }
+
+        .custom-file-upload p {
+            text-align: center;
+            font-size: 10px;
+            font-weight: 400;
+            position: absolute;
+            z-index: 0;
+            bottom: 10px;
+            left: 29%;
+        }
+
+        .custom-file-upload input[type="file"] {
+            display: none;
+        }
+
+        #filePreview {
+            display: none;
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 10px;
+            position: relative;
+            z-index: 10;
+        }
+
+    </style>
+</head>
+<body class="d-flex flex-column justify-content-center align-items-center" style="background: linear-gradient(0deg, rgba(255, 199, 60, 0.20) 0%, rgba(255, 199, 60, 0.12) 32.03%, rgba(255, 199, 60, 0.00) 53.36%), linear-gradient(0deg, rgba(0, 209, 255, 0.00) 0%, rgba(0, 209, 255, 0.62) 3.5%, #00D1FF 100%), url('Assets/about.jpeg') lightgray 50%; background-size: cover; background-repeat: no-repeat; height: auto;">
+    <nav class="navbar navbar-expand-lg position-fixed top-5 d-flex justify-content-between p-3">
+        <div class="container-fluid d-flex justify-content-between">
+        <a class="navbar-brand" href=""><img class="logo" src="Assets/logo.svg" alt=""/></a>
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+            <ul class="navbar-nav d-flex gap-5">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tentang Program</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Berita</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link yellowButton px-3 text-white" href="#"
+                    >Registrasi</a
+                    >
+                </li>
+            </ul>
+        </div>
+        </div>
+    </nav>
+    <div class="d-flex flex-column position-block " style="padding: 10vw; margin-top: 20px;">
+        <h2 style="text-align: center; font-size: 32px; color: white; font-style: normal; font-weight: 700; line-height: normal;">Register</h2>
+        <p style="text-align: center; line-height: normal; color: white;">Lengkapi data diri kamu dengan benar</p>
+        <!-- Form Box Start -->
+        <div class="d-flex flex-column align-items-center flex-wrap" style="padding: 30px 20px; background: white; gap: 5px; border-radius: 16px; width: calc(14vw + 25rem); min-width: 400px; height: auto;">
+            <form action="" method="get" class="d-flex flex-column" style="gap: 20px;">
+                <div class="input-container">
+                    <input class="required" required type="text" placeholder="Nama lengkap">
+                    <span class="required-asterisk">*</span>
+                </div>
+                <div class="input-container">
+                    <input class="required" required type="email" placeholder="Email">
+                    <span class="requiredemail-asterisk">*</span>
+                </div>
+                <div class="input-container">
+                    <input class="required" required type="number" placeholder="Nomor Telepon" max="12" min="8">
+                    <span class="required-asterisk">*</span>
+                </div>
+                <div class="" style="font-size: 10px; font-weight: 400; color: #828282; margin-top: -17px;">Isi hanya angka</div>
+                <div class="input-container">
+                    <textarea required placeholder='Alasan mengikuti program "Explore Thailand by Detiktravel"'></textarea>
+                    <span class="requiredtext-asterisk">*</span>
+                </div>
+                
+                <!-- image preview -->
+                <div class="d-flex justify-content-between align-items-center gap-3">
+                    <div class="custom-file-upload" style="display: flex; justify-content: center; align-items: center;">
+                        <input type="file" accept="image/*" id="fileInput"/>
+                        <img src="Assets/imageuploader.svg" alt="Upload Image" id="defaultImage">
+                        <img id="filePreview" src="" alt="File Preview">
+                        <p style="margin-left: -10px;">Upload foto profil <span style="color: red;">*</span></p>
+                    </div>
+                    
+                    <ol style="list-style-type: decimal; list-style-position: inside; padding-left: 0; font-size: calc(0.5vw + 0.5rem);">
+                        <li>Format file: .png, .jpg, .jpeg</li>
+                        <li>Maksimal ukuran file 1MB</li>
+                        <li>Disarankan foto mencakup 3:4 badan</li>
+                    </ol>
+                </div>
+
+                <div class="input-container">
+                    <input class="required" required type="url" placeholder="Link Instagram">
+                    <span class="required-asterisk">*</span>
+                </div>
+                <div class="Contoh: https://www.instagram.com/yourusername"></div>
+
+                <div class="d-flex gap-2 " style="margin-top: -35px;">
+                    <input type="checkbox">
+                    <div class="" style="font-size: 12px; font-weight: 400;">Dengan menekan tombol "Daftar", Saya menyetujui <a href="" style="color: #00D1FF; text-decoration: none;">syarat dan ketentuan</a> yang berlaku</div>
+                </div>
+                
+            </form>
+            <button class="d-flex justify-content-center align-items-center" style="padding: 16px 20px; border-radius: 5px; background: #00D1FF; width: 250px; border: none; color: white; font-size: 14px; font-weight: 700; margin-top: 15px;">Daftar</button>
+        </div>
+    </div>
+    
+</body>
+<script>
+    document.querySelector('.custom-file-upload').addEventListener('click', function() {
+        document.querySelector('#fileInput').click();
+    });
+
+    document.querySelector('#fileInput').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const preview = document.querySelector('#filePreview');
+        const defaultImage = document.querySelector('#defaultImage');
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                defaultImage.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.style.display = 'none';
+            defaultImage.style.display = 'block';
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</html>
